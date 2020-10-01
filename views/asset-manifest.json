@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8bd16b83.chunk.css",
+    "main.js": "/static/js/main.eeb1de34.chunk.js",
+    "main.js.map": "/static/js/main.eeb1de34.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.40fd9fda.js",
+    "runtime-main.js.map": "/static/js/runtime-main.40fd9fda.js.map",
+    "static/js/2.120a5922.chunk.js": "/static/js/2.120a5922.chunk.js",
+    "static/js/2.120a5922.chunk.js.map": "/static/js/2.120a5922.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.6f84bd75823b7df06c8d29b8d0f6ced6.js": "/precache-manifest.6f84bd75823b7df06c8d29b8d0f6ced6.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.8bd16b83.chunk.css.map": "/static/css/main.8bd16b83.chunk.css.map",
+    "static/js/2.120a5922.chunk.js.LICENSE.txt": "/static/js/2.120a5922.chunk.js.LICENSE.txt",
+    "static/media/comment.svg": "/static/media/comment.413ccde4.svg",
+    "static/media/emptyStar.svg": "/static/media/emptyStar.fd5abb02.svg",
+    "static/media/face.jpeg": "/static/media/face.f44a3e14.jpeg",
+    "static/media/fullStar.svg": "/static/media/fullStar.2e7d482d.svg",
+    "static/media/halfStar.svg": "/static/media/halfStar.872eb37b.svg",
+    "static/media/jangsu.jpeg": "/static/media/jangsu.6587f869.jpeg",
+    "static/media/like.svg": "/static/media/like.135e8d36.svg",
+    "static/media/soju.jpeg": "/static/media/soju.4c005228.jpeg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.40fd9fda.js",
+    "static/js/2.120a5922.chunk.js",
+    "static/css/main.8bd16b83.chunk.css",
+    "static/js/main.eeb1de34.chunk.js"
+  ]
+}
