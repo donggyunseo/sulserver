@@ -1,6 +1,7 @@
 var express = require('express');
-const pool = require('../utils/mysql');
 var router = express.Router();
+
+const pool = require('../utils/mysql');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
