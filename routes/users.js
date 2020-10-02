@@ -83,7 +83,7 @@ router.get('/:id/email', async (req, res, next) => {
     const token = req.headers['x-access-token']
     try {
       const payload = jwt.verify(token, process.env.JWT_SECRET)
-      const userId = req.params.id
+      const userId = Integer.parseInt(req.params.id)
       if (payload.id !== userId) {
         return res.json({ status: 403, msg: 'Deny access!!', token: token, payload: payload, userId: userId })
       }
