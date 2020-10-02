@@ -12,11 +12,27 @@ router.get('/reviewList', async (req, res, next) => {
   try {
     const connection = await pool.getConnection()
     const [ reviews ] = await connection.query('SELECT * FROM REVIEWS')
-    console.log('1234')
     res.json({ status: 200, arr: reviews })
+
+    connection.release()
   } catch (err) {
     console.log(err)
     res.json({ status: 500, msg: 'error' })
+    connection.release()
+  }
+})
+
+router.get('/sulList', async (req, res, next) => {
+  try {
+    const connection = await pool.getConnection()
+    const [ alcohols ] = await connection.query('SELECT * FROM ALCOHOLS')
+    res.json({ status: 200, arr: alcohols })
+
+    connection.release()
+  } catch (err) {
+    console.log(err)
+    res.json({ status: 500, msg: 'error' })
+    connection.release()
   }
 })
 

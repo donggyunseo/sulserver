@@ -14,9 +14,12 @@ router.get('/', async (req, res, next) => {
     const [ result ] = await connection.query('SELECT * FROM USERS')
     res.json({ status: 200, arr:  result })
 
+    connection.release()
   } catch (err) {
     res.json({ status: 500, msg: 'Error' })
     console.log(err)
+
+    connection.release()
   }
 });
 
@@ -36,9 +39,13 @@ router.post('/', async (req, res, next) => {
     const connection = await pool.getConnection()
     await connection.query('INSERT INTO USERS(EMAILS, PWD_salts, PWD_hashed, FIRST_NAMES, LAST_NAMES, IMAGES) VALUES(?, ?, ?, ?, ?, ?)', [email, saltString, hashedPwdString, firstName, lastName, image])
     res.json({ status: 201, msg: 'success' })
+
+    connection.release()
   } catch (err) {
     res.json({ status: 500, msg: 'Error' })
     console.log(err)
+
+    connection.release()
   }
 })
 
@@ -50,7 +57,7 @@ router.post('/login', async (req, res, next) => {
     const connection = await pool.getConnection()
     const [users] = await connection.query('SELECT * FROM USERS WHERE EMAILS = ?', [email])
     if (users.length === 0) {
-      return res.json({ status: 401, msg: 'No ID!' })
+      return res.json({ status: 401, msg: 'No EMAIL!' })
     }
     const user = users[0]
     const loginHashedPwd = crypto.pbkdf2Sync(pwd, user.PWD_salts, 100000, 64, 'SHA512')
@@ -58,13 +65,16 @@ router.post('/login', async (req, res, next) => {
       return res.json({ status: 401, msg: 'No PASSWORD!' })
     }
 
-    const payload = { email: user.email }
+    const payload = { id: user.idUSERS }
     const token = jwt.sign(payload, process.env.JWT_SECRET)
 
     res.json({ status: 200, token: token })
+
+    connection.release()
   } catch (err) {
     console.log(err)
     res.json({ status: 500, msg: 'error' })
+    connection.release()
   }
 })
 
@@ -74,18 +84,21 @@ router.get('/:id/email', async (req, res, next) => {
     try {
       const payload = jwt.verify(token, process.env.JWT_SECRET)
       const userId = req.params.id
-      if (payload.id !== userId) {
-        return res.json({ status: 403, msg: 'Deny access!' })
+      if (payload.idUSERS !== userId) {
+        return res.json({ status: 403, msg: 'Deny access!!' })
       }
       const connection = await pool.getConnection()
-      const [result] = await connection.query('SELECT * FROM USERS WHERE idUSERS = ?', [id])
+      const [result] = await connection.query('SELECT * FROM USERS WHERE idUSERS = ?', [userId])
       res.json({ status: 200, arr: result })
+      connection.release()
     } catch (err) {
       res.json({ status: 401, msg: 'Deny access' })
+      connection.release()
     }
   } catch (err) {
     console.log(err)
     res.json({ status: 500, msg: 'error' })
+    connection.release()
   }
 })
 
@@ -98,9 +111,13 @@ router.post('/:iduser/write', async (req, res, next) => {
 
     const connection = await pool.getConnection()
     const [ review ] = await connection.query('INPUT INTO REVIEWS(idUSERS, idALCOHOLS, RATINGS, COMMENTS) VALUES(?, ?, ?, ?)', [iduser,idalcohol,rating,comment])
+
+    connection.release()
   } catch (err) {
     console.log(err)
     res.json({ status: 500, msg: 'error' })
+
+    connection.release()
   }
 })
 
