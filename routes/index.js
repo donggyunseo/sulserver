@@ -12,7 +12,7 @@ router.get('/reviewList', async (req, res, next) => {
   try {
     const connection = await pool.getConnection()
     const [ reviews ] = await connection.query('SELECT * FROM REVIEWS')
-    res.header("Access-Control-Allow-Origin", "*")
+    req.header("Access-Control-Allow-Origin", "*")
     res.json({ status: 200, arr: reviews })
 
     connection.release()
