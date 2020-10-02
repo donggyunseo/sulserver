@@ -23,7 +23,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.get('/', (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*")
+  req.header("Access-Control-Allow-Origin", "*")
 })
 
 // catch 404 and forward to error handler
