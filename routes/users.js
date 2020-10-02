@@ -78,7 +78,7 @@ router.post('/login', async (req, res, next) => {
   }
 })
 
-router.get('/:id/email', async (req, res, next) => {
+router.get('/:id/profile', async (req, res, next) => {
   try {
     const token = req.headers['x-access-token']
     try {
@@ -88,7 +88,7 @@ router.get('/:id/email', async (req, res, next) => {
         return res.json({ status: 403, msg: 'Deny access!!', token: token, payload: payload, userId: userId })
       }
       const connection = await pool.getConnection()
-      const [result] = await connection.query('SELECT * FROM USERS WHERE idUSERS = ?', [userId])
+      const [result] = await connection.query('SELECT idUSERS, EMAILS, FIRST_NAMES, LAST_NAMES, IMAGES FROM USERS WHERE idUSERS = ?', [userId])
       res.json({ status: 200, arr: result })
       connection.release()
     } catch (err) {
