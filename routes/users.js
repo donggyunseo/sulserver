@@ -84,8 +84,8 @@ router.get('/:id/email', async (req, res, next) => {
     try {
       const payload = jwt.verify(token, process.env.JWT_SECRET)
       const userId = req.params.id
-      if (payload.idUSERS !== userId) {
-        return res.json({ status: 403, msg: 'Deny access!!', payload: payload })
+      if (payload.id !== userId) {
+        return res.json({ status: 403, msg: 'Deny access!!', payload: payload.id, userId: userId })
       }
       const connection = await pool.getConnection()
       const [result] = await connection.query('SELECT * FROM USERS WHERE idUSERS = ?', [userId])
