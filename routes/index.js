@@ -18,6 +18,22 @@ router.get('/reviewList', async (req, res, next) => {
   } catch (err) {
     console.log(err)
     res.json({ status: 500, msg: 'error' })
+    
+    connection.release()
+  }
+})
+
+router.get('/userList', async (req, res, next) => {
+  try {
+    const connection = await pool.getConnection()
+    const [ users ] = await connection.query('SELECT idUSERS, FIRST_NAMES, LAST_NAMES, IMAGES FROM USERS')
+    res.json({ status: 200, arr: users })
+
+    connection.release()
+  } catch (err) {
+    console.log(err)
+    res.json({ status: 500, msg: 'error' })
+
     connection.release()
   }
 })
@@ -32,6 +48,7 @@ router.get('/sulList', async (req, res, next) => {
   } catch (err) {
     console.log(err)
     res.json({ status: 500, msg: 'error' })
+
     connection.release()
   }
 })
